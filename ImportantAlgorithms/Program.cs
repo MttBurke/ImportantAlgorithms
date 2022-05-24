@@ -13,6 +13,7 @@ namespace ImportantAlgorithms
             int min = 0;
             int max = 100;
             string choice;
+            int searchValue;
 
             int[] array = new int[10];
             BubbleSort bubbleSort;
@@ -30,15 +31,32 @@ namespace ImportantAlgorithms
             {
                 case "1":
                     array = bubbleSort.Sort();
+                    DisplayArray(array);
                     break;
                 case "2":
                     array = insertionSort.Sort();
+                    DisplayArray(array);
+                    break;
+                case "3":
+                    searchValue = int.Parse(Console.ReadLine());
+                    BinarySearch(bubbleSort, array, searchValue);
                     break;
                 default:
                     break;
             }
 
+        }
+
+        public static void BinarySearch(BubbleSort sorter, int[] array, int searchValue)
+        {
+            BinarySearch binarySearch = new BinarySearch(array);
+            int pos;
+
+            array = sorter.Sort();
+            pos = binarySearch.Search(searchValue);
+
             DisplayArray(array);
+            Console.WriteLine(searchValue.ToString() + " At pos: " + pos.ToString());
         }
 
         public static void RandomiseArray(int[] array, int min, int max)
@@ -47,7 +65,18 @@ namespace ImportantAlgorithms
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = random.Next(min, max);
+                for (int y = 0; y < array.Length; y++)
+                {
+                    int randomNum = random.Next(min, max);
+                    if (array[y] != randomNum)
+                    {
+                        array[i] = randomNum;
+                    }
+                    else
+                    {
+                        array[i] = random.Next(min, max);
+                    }
+                }
             }
         }
 
